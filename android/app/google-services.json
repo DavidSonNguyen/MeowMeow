@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "894820244726",
+    "firebase_url": "https://meowmeow-84f15.firebaseio.com",
+    "project_id": "meowmeow-84f15",
+    "storage_bucket": "meowmeow-84f15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894820244726:android:3a1b48e35875b749",
+        "android_client_info": {
+          "package_name": "com.davidsonnguyen.meow_meow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894820244726-1ud42n4l2p8n7c7iogf5dfv9mb2ngbaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQiBoN1qOsNWZioPzgJi9QC3ulnt8j8x8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894820244726-1ud42n4l2p8n7c7iogf5dfv9mb2ngbaa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "894820244726-7886mai12msl97fdu2frgfqt5poem06p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.davidsonnguyen.meowMeow"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
