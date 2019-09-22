@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meow_meow/bloc/base_bloc.dart';
 import 'package:meow_meow/bloc/base_state.dart';
 import 'package:meow_meow/model/message_model.dart';
+import 'package:meow_meow/model/user_model.dart';
 
 class MessageBloc extends BaseBloc {
   MessageState currentState;
@@ -54,6 +56,25 @@ class MessageBloc extends BaseBloc {
     });
   }
 
+  void fetchUserInfo(String uuid) async {
+    Firestore.instance
+        .collection("user")
+        .document(uuid)
+        .snapshots()
+        .listen((data) {
+      if (data != null) {
+        UserModel model = UserModel.fromJson(data.data);
+        currentState.userModel = model;
+      }
+    });
+  }
+
+  void saveSharePref(String uuid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("uuid", uuid);
+    prefs.getString("uuid");
+  }
+
   @override
   void dispose() {
     _streamMessage?.close();
@@ -62,6 +83,7 @@ class MessageBloc extends BaseBloc {
 
 class MessageState extends BaseState {
   List<MessageModel> messages;
+  UserModel userModel;
 
   List<MessageModel> get listMessage => messages ?? new List<MessageModel>();
 

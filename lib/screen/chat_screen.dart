@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meow_meow/bloc/login_bloc/message_bloc.dart';
 import 'package:meow_meow/constant/helper.dart';
 import 'package:meow_meow/model/message_model.dart';
+import 'package:meow_meow/model/user_model.dart';
 import 'package:meow_meow/widget/encode_text.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final uuid = ModalRoute.of(context).settings.arguments;
     _msgBloc.setId(uuid);
+    _msgBloc.fetchUserInfo(uuid);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -51,14 +53,34 @@ class ChatScreenState extends State<ChatScreen> {
                             return Center();
                           }
                           return Row(
+                            mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: m.userId != _msgBloc.userId
                                 ? MainAxisAlignment.start
                                 : MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
-                              m.userId == _msgBloc.userId ? Container(
-                                width: 80.0,
-                              ) : Center(),
+                              m.userId == _msgBloc.userId
+                                  ? Container(
+                                      width: 80.0,
+                                    )
+                                  : Center(),
+                              m.userId == _msgBloc.userId
+                                  ? Center()
+                                  : ClipRRect(
+                                      key: UniqueKey(),
+                                      borderRadius: BorderRadius.circular(40.0),
+                                      child: Container(
+                                        width: 30.0,
+                                        height: 30.0,
+                                        margin: EdgeInsets.only(right: 5.0),
+                                        child: Image.network(
+                                            _msgBloc.currentState.userModel ==
+                                                    null
+                                                ? null
+                                                : _msgBloc.currentState
+                                                    .userModel.partnerAvatar),
+                                      ),
+                                    ),
                               Flexible(
                                 child: Container(
                                   padding: EdgeInsets.all(3.0),
@@ -81,9 +103,11 @@ class ChatScreenState extends State<ChatScreen> {
                                   ),
                                 ),
                               ),
-                              m.userId != _msgBloc.userId ? Container(
-                                width: 80.0,
-                              ) : Center(),
+                              m.userId != _msgBloc.userId
+                                  ? Container(
+                                      width: 80.0,
+                                    )
+                                  : Center(),
                               m.userId == _msgBloc.userId
                                   ? Container(
                                       margin: EdgeInsets.only(left: 5.0),

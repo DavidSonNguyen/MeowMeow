@@ -39,8 +39,9 @@ class EncodeTextState extends State<EncodeText> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Expanded(
+        Flexible(
           child: Container(
             padding: EdgeInsets.only(left: 5.0),
             child: Text(
