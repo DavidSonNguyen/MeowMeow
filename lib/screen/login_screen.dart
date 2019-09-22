@@ -2,10 +2,12 @@ import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:meow_meow/bloc/login_bloc/login_bloc.dart';
 import 'package:meow_meow/constant/routes.dart';
 import 'package:meow_meow/model/user_model.dart';
+import 'package:meow_meow/screen/chat_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,15 +42,6 @@ class LoginState extends State<LoginScreen> with TickerProviderStateMixin {
         curve: Curves.linear,
       ),
     );
-
-//        Tween(begin: 0.0, end: 1.0).animate(
-//      CurvedAnimation(
-//        parent: _animationController,
-//        curve: Curves.linear,
-//      ),
-//    );
-
-    _checkLogin();
   }
 
   @override
@@ -172,25 +165,36 @@ class LoginState extends State<LoginScreen> with TickerProviderStateMixin {
       print(e.toString());
     } finally {
       if (user != null) {
-        bloc.fetchUserInfo(user.uid);
-        Navigator.of(context).pushNamed(Routes.CHAT, arguments: user.uid);
+        bloc.saveSharePref(user.uid);
+        Navigator.of(context).popAndPushNamed(Routes.CHAT, arguments: user.uid);
+//        Firestore.instance
+//            .collection('user')
+//            .document(user.uid)
+//            .snapshots()
+//            .listen((data) {
+//          UserModel userModel = UserModel.fromJson(data.data);
+//          bloc.fetchUserInfo(userModel);
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//              builder: (BuildContext context) {
+//                return ChatScreen();
+//              },
+//              settings: RouteSettings(
+//                arguments: user.uid,
+//                isInitialRoute: true,
+//              ),
+//            ),
+//          );
+//          return userModel;
+//        });
+//        Navigator.of(context).popAndPushNamed(Routes.CHAT, arguments: user.uid);
       } else {
         _animationController.reverse();
         setState(() {
           _result = "Fail";
         });
       }
-    }
-  }
-
-  void _checkLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String uuid = prefs.getString("uuid");
-    if (uuid == null || uuid.isEmpty) {
-      // chưa login
-    } else {
-      // login
-      Navigator.of(context).pushNamed(Routes.CHAT, arguments: uuid);
     }
   }
 

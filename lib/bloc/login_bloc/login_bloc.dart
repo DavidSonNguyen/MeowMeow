@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:meow_meow/model/user_model.dart';
 
 import '../base_bloc.dart';
@@ -7,22 +9,13 @@ class LoginBloc extends BaseBloc {
 
   Observable<UserModel> get streamUserInfo => _streamUserInfo.stream;
 
-  void fetchUserInfo(String uuid) {
-    Firestore.instance
-        .collection('user')
-        .document(uuid)
-        .snapshots()
-        .listen((data) {
-      UserModel userModel = UserModel.fromJson(data.data);
-      _streamUserInfo.sink.add(userModel);
-      _saveSharePref(userModel);
-      return userModel;
-    });
+  void fetchUserInfo(UserModel model) {
+    _streamUserInfo.sink.add(model);
   }
 
-  void _saveSharePref(UserModel model) async {
+  void saveSharePref(String uuid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("uuid", model.uuid);
+    prefs.setString("uuid", uuid);
     prefs.getString("uuid");
   }
 
