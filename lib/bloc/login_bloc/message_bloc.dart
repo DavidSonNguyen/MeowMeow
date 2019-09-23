@@ -17,9 +17,9 @@ class MessageBloc extends BaseBloc {
     this.userId = id;
   }
 
-  final _streamMessage = StreamController<MessageState>.broadcast();
+  final _streamMessage = BehaviorSubject<MessageState>();
 
-  Stream<MessageState> get stream => _streamMessage.stream;
+  Observable<MessageState> get stream => _streamMessage.stream;
 
   void addMessage(String message) async {
 //    int nextIndex = currentState.listMessage.length;

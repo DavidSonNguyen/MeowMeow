@@ -24,7 +24,9 @@ class ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final uuid = ModalRoute.of(context).settings.arguments;
     _msgBloc.setId(uuid);
-    _msgBloc.fetchUserInfo(uuid);
+    if (_msgBloc.currentState.userModel == null) {
+      _msgBloc.fetchUserInfo(uuid);
+    }
     return Scaffold(
       body: SafeArea(
         child: Container(

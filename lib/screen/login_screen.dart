@@ -166,29 +166,17 @@ class LoginState extends State<LoginScreen> with TickerProviderStateMixin {
     } finally {
       if (user != null) {
         bloc.saveSharePref(user.uid);
-        Navigator.of(context).popAndPushNamed(Routes.CHAT, arguments: user.uid);
-//        Firestore.instance
-//            .collection('user')
-//            .document(user.uid)
-//            .snapshots()
-//            .listen((data) {
-//          UserModel userModel = UserModel.fromJson(data.data);
-//          bloc.fetchUserInfo(userModel);
-//          Navigator.push(
-//            context,
-//            MaterialPageRoute(
-//              builder: (BuildContext context) {
-//                return ChatScreen();
-//              },
-//              settings: RouteSettings(
-//                arguments: user.uid,
-//                isInitialRoute: true,
-//              ),
-//            ),
-//          );
-//          return userModel;
-//        });
-//        Navigator.of(context).popAndPushNamed(Routes.CHAT, arguments: user.uid);
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return ChatScreen();
+            },
+            settings: RouteSettings(
+              isInitialRoute: true,
+              arguments: user.uid,
+            ),
+          ),
+        );
       } else {
         _animationController.reverse();
         setState(() {

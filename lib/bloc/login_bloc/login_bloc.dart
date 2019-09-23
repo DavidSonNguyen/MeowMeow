@@ -9,9 +9,9 @@ class LoginBloc extends BaseBloc {
 
   Observable<UserModel> get streamUserInfo => _streamUserInfo.stream;
 
-  void fetchUserInfo(UserModel model) {
-    _streamUserInfo.sink.add(model);
-  }
+//  void fetchUserInfo(UserModel model) {
+//    _streamUserInfo.sink.add(model);
+//  }
 
   void saveSharePref(String uuid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
