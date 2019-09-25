@@ -25,7 +25,6 @@ class SplashScreenState extends State<SplashScreen> {
     String uuid = prefs.getString("uuid");
     if (uuid == null || uuid.isEmpty) {
       // chưa login
-//      Navigator.of(context).popAndPushNamed(Routes.LOGIN);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -39,7 +38,6 @@ class SplashScreenState extends State<SplashScreen> {
       );
     } else {
       // login
-//      Navigator.of(context).popAndPushNamed(Routes.CHAT, arguments: uuid);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -52,7 +50,6 @@ class SplashScreenState extends State<SplashScreen> {
           ),
         ),
       );
-//      Navigator.of(context).popAndPushNamed(Routes.CHAT, arguments: uuid);
     }
   }
 
